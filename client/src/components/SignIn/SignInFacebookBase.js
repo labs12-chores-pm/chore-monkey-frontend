@@ -24,7 +24,9 @@ export const SignInFacebookBase = ({ history, firebase }) => {
 
   return (
     <form onSubmit={onSubmit}>
-      <button type="submit">Sign In with Facebook</button>
+      <button type="submit">
+        <i className="fab fa-facebook-f fa-2x" />
+      </button>
     </form>
   )
 }

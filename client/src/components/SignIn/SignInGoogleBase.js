@@ -13,7 +13,7 @@ export const SignInGoogleBase = ({ history, firebase }) => {
         email: socialAuthUser.additionalUserInfo.profile.email,
         token: socialAuthUser.credential.idToken,
         roles: { ADMIN: 'ADMIN' }
-      })  
+      })
     } catch (e) {
       if (e.code === SIGNINCONSTS.ERROR_CODE_ACCOUNT_EXISTS) {
         e.message = SIGNINCONSTS.ERROR_MSG_ACCOUNT_EXISTS
@@ -26,7 +26,9 @@ export const SignInGoogleBase = ({ history, firebase }) => {
 
   return (
     <form onSubmit={onSubmit}>
-      <button type="submit">Sign In with Google</button>
+      <button type="submit">
+        <i className="fab fa-google fa-2x" />
+      </button>
     </form>
   )
 }

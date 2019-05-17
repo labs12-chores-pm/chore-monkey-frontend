@@ -1,75 +1,41 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react'
 
-import { withFirebase } from '../Firebase';
+import { withFirebase } from '../Firebase'
+import Item from './Item'
 
-class UserItem extends Component {
-  constructor(props) {
-    super(props);
+const UserItem = ({ match, location, firebase }) => {
+  const [loading, setLoading] = useState(false)
+  const [user, setUser] = useState(null)
+  const [id, setId] = useState('')
 
-    this.state = {
-      loading: false,
-      user: null,
-      ...props.location.state,
-    };
-  }
-
-  componentDidMount() {
-    if (this.state.user) {
-      return;
+  useEffect(() => {
+    if (user) {
+      return
     }
 
-    this.setState({ loading: true });
+    setLoading(true)
 
-    this.props.firebase
-      .user(this.props.match.params.id)
-      .on('value', snapshot => {
-        this.setState({
-          user: snapshot.val(),
-          loading: false,
-        });
-      });
-  }
+    firebase.user(match.params.id).on('value', snapshot => {
+      setUser(snapshot.val())
+      setLoading(false)
+      setId(match.params.id)
+    })
 
-  componentWillUnmount() {
-    this.props.firebase.user(this.props.match.params.id).off();
-  }
+    return () => {
+      firebase.user(match.params.id).off()
+    }
+  }, [firebase, match.params.id, user])
 
-  onSendPasswordResetEmail = () => {
-    this.props.firebase.doPasswordReset(this.state.user.email);
-  };
+  const onSendPasswordResetEmail = () => firebase.doPasswordReset(user.email)
 
-  render() {
-    const { user, loading } = this.state;
-
-    return (
-      <div>
-        <h2>User ({this.props.match.params.id})</h2>
-        {loading && <div>Loading ...</div>}
-
-        {user && (
-          <div>
-            <span>
-              <strong>ID:</strong> {user.uid}
-            </span>
-            <span>
-              <strong>E-Mail:</strong> {user.email}
-            </span>
-            <span>
-              <strong>Username:</strong> {user.username}
-            </span>
-            <span>
-              <button
-                type="button"
-                onClick={this.onSendPasswordResetEmail}
-              >
-                Send Password Reset
-              </button>
-            </span>
-          </div>
-        )}
-      </div>
-    );
-  }
+  return (
+    <Item
+      user={user}
+      onSendPasswordResetEmail={onSendPasswordResetEmail}
+      loading={loading}
+      id={id}
+    />
+  )
 }
 
-export default withFirebase(UserItem);
+export default withFirebase(UserItem)

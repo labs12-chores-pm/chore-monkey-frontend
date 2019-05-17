@@ -12,11 +12,13 @@ import { SignInFacebookBase } from './SignInFacebookBase'
 
 const SignInPage = () => (
   <div>
-    <h1>SignIn</h1>
+    <h1>Sign In</h1>
     <SignInForm />
-    <SignInGoogle />
-    <SignInFacebook />
-    <SignInTwitter />
+    <div style={{ display: 'flex' }}>
+      <SignInGoogle />
+      <SignInFacebook />
+      <SignInTwitter />
+    </div>
     <PasswordForgetLink />
     <SignUpLink />
   </div>

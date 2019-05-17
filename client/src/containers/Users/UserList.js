@@ -1,76 +1,36 @@
-import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react'
 
-import { withFirebase } from '../Firebase';
-import * as ROUTES from '../../constants/routes';
+import { withFirebase } from '../Firebase'
+import List from './List'
 
-class UserList extends Component {
-  constructor(props) {
-    super(props);
+const UserList = ({ firebase }) => {
+  const [users, setUsers] = useState([])
+  const [loading, setLoading] = useState(false)
 
-    this.state = {
-      loading: false,
-      users: [],
-    };
-  }
-
-  componentDidMount() {
-    this.setState({ loading: true });
-
-    this.props.firebase.users().on('value', snapshot => {
-      const usersObject = snapshot.val();
-
+  useEffect(() => {
+    setLoading(true)
+    firebase.users().on('value', snapshot => {
+      const usersObject = snapshot.val()
       const usersList = Object.keys(usersObject).map(key => ({
         ...usersObject[key],
-        uid: key,
-      }));
+        uid: key
+      }))
+      setUsers(usersList)
+      setLoading(false)
+    })
+    return () => {
+      firebase.users().off()
+    }
+  }, [firebase])
 
-      this.setState({
-        users: usersList,
-        loading: false,
-      });
-    });
-  }
-
-  componentWillUnmount() {
-    this.props.firebase.users().off();
-  }
-
-  render() {
-    const { users, loading } = this.state;
-
-    return (
-      <div>
-        <h2>Users</h2>
-        {loading && <div>Loading ...</div>}
-        <ul>
-          {users.map(user => (
-            <li key={user.uid}>
-              <span>
-                <strong>ID:</strong> {user.uid}
-              </span>
-              <span>
-                <strong>E-Mail:</strong> {user.email}
-              </span>
-              <span>
-                <strong>Username:</strong> {user.username}
-              </span>
-              <span>
-                <Link
-                  to={{
-                    pathname: `${ROUTES.ADMIN}/${user.uid}`,
-                    state: { user },
-                  }}
-                >
-                  Details
-                </Link>
-              </span>
-            </li>
-          ))}
-        </ul>
-      </div>
-    );
-  }
+  return (
+    <List
+      users={users}
+      setUsers={setUsers}
+      loading={loading}
+      setLoading={setLoading}
+    />
+  )
 }
 
-export default withFirebase(UserList);
+export default withFirebase(UserList)

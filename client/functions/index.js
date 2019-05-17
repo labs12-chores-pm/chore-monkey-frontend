@@ -1,10 +1,6 @@
 const functions = require('firebase-functions')
 const admin = require('firebase-admin')
 
-admin.initializeApp({
-  credential: admin.credential.cert(require('./config.json')),
-  databaseURL: 'https://chore-monkey-app.databaseio.com'
-})
 
 const express = require('express')
 const cors = require('cors')

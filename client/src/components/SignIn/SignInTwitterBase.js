@@ -25,7 +25,9 @@ export const SignInTwitterBase = ({ history, firebase }) => {
 
   return (
     <form onSubmit={onSubmit}>
-      <button type="submit">Sign In with Twitter</button>
+      <button type="submit">
+        <i className="fab fa-twitter fa-2x" />
+      </button>
     </form>
   )
 }

@@ -13,9 +13,11 @@ import AdminPage from '../views/Admin'
 import { withAuthentication } from './Sessions'
 import * as ROUTES from '../constants/routes'
 
+import './App.css'
+
 const App = () => (
   <Router>
-    <div>
+    <div className="App">
       <Navigation />
 
       <hr />
