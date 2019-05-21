@@ -1,0 +1,21 @@
+{
+    "type": "service_account",
+    "project_id": "chore-monkey-app",
+    "private_key_id": "58ae0695f2778d1cbdc7499e6a90d33459dadcbb",
+    "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDD6q/pPQQDnUFF\n0sJLqePcMYQOimczdOFcAlVJF+yQQOioRR99GtW8haslTvsBBC2Hs4rjiZdEGJ4N\nvkd8HHtd6Yy7D2CMWZVoIaayD9bR7AvoyJ9YVjQ/sQXztB5NshPGkaTvMAxsLlil\n6cIkCGUrgAyACBXTIbpO0mh/dwhKV12CcnwZOKHWZDCrkVFgLdtwQYIPIY4tIGIy\nus0StvbeHWOxl1h69uPVPrmMH1LJdyTDr1wHTEgvT5vONIRTxAn7Wmz9OxuUrsW/\nrlteEAsdi0j0RLO7K/vClvqPq+ueWJDJeyaP7kiDAvlaI+ggutXscgv0rtp3Mv9x\nbmRTw8RFAgMBAAECggEAAyQQDefcg0endDxyFk8dnWTDKTiEJF8LUzOhCmWdH/Lq\ncp1+aRMKZNX/wxQGZ3hvAm3ucWy98BQ09HjId0ToSr55HcacAE6vW9auRXcw38yu\nTt0TMOdbjxSCHpYUpko55u+5eobarCFSFSwvi0RXMDYCp/V5OW6g/gKBil7uKG2W\n7cdIrzL7mAv6PPIuZEScmx0e+8w772NQHi9ptXsYESIvGyC8o8M+7nhUacIVR5Ku\nKRfvoJ6aSjjWgRbrogbl+SmKIk3AivRXnR/PcpnQd0SVClrwSoUbkPWOABR4Q6Y/\nc+E9ZQhoecDpeihV8fzBh2u4Ahbt8xuW5uJ/u//BQQKBgQDzAuGk5fA1Xa9tSSi6\ntvvVKwJ8nOQoXTuqYRcdP+PSpUP3GVh70hMho10jn4Azl2/saUivNpPJDZPj8dej\nsPVYBWR1RJ4OfAEwuQCCu5KL0W6lqSD0xp6fy/vhf+z8p5VOPJBW+B8tAt9gyjeQ\nOani64MniDK/lRUsejtTW8u2mwKBgQDOY2mUpWT7U8ZmPuUtIVD/1wSuzl6Zjxoe\nHR/Qav6fSyS8hMqdMBCVmBJDjC0AQPttXNBodONSGSyY2mQsbOlVrpt/4ZNC2mlh\n/RK+DrC6z24bGxBCLGoW6VZ6czR0IgIt49CCsa86KWJ74AzOPXlZ8gKGGEbQ9y7g\nqD0mIGCunwKBgAZGIMU9GoKGNK1BokePydirD5lgA5P3ND8l2o7qw1sA4UxT3zDz\nL4NC0HjG+WxbkIwt+65qXk5mh1bvO34CZ5MqMHnGl74P/Yfgft7hMNtjQNQOFce8\nCQRfI9Wik9/CA9zNO3zDUyq6VEIPdnfGxVgSdIRkw8qmcrF/RmDUkeHZAoGALI+e\nTi/fu7v8zDqsNLBK0tJT+oIoPrN9Ch9zrQZM74vD5MgvDv0/t2zcFKWBWdqt7pDp\nloQWSLWSwXX1xvnE73EBtfy4VOjfc/62Oz7kvZDnzwZq3j7EsSm0OEADhUeKfOoB\nLRa8JKymzOQ1H5p6RwdPsDAxqhCUmID6ou6+sTUCgYEAy3rvi0I6wNA3JF8YUJNE\npMIub7OvBdNx2xw0JCTYxDrqbSaUQToSJH5b7AQ1SSMkpSCiAGn2vhdqMFP96XcU\n24jdcOhQVXyEbU36TvqbkdxlNEgrPUV8L0Qn9/z0yEzQMKSY84U1hrY+SDw348Au\nhUL8aqIN6iVg/R7a+kug0JU=\n-----END PRIVATE KEY-----\n",
+    "client_email": "firebase-adminsdk-zgf9l@chore-monkey-app.iam.gserviceaccount.com",
+    "client_id": "109547373307325828246",
+    "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+    "token_uri": "https://oauth2.googleapis.com/token",
+    "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+    "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-zgf9l%40chore-monkey-app.iam.gserviceaccount.com",
+    "apiKey": "AIzaSyAf8S7IzLWJXM1UkSU3QAIpnDBZb0wCVgk",
+    "authDomain": "chore-monkey-app.firebaseapp.com",
+    "databaseURL": "https://chore-monkey-app.firebaseio.com",
+    "projectId": "chore-monkey-app",
+    "storageBucket": "chore-monkey-app.appspot.com",
+    "messagingSenderId": "682615121437",
+    "appId": "1:682615121437:web:c546bb1c31d5fdb7"
+  }
+
+   

@@ -1,7 +1,8 @@
 import app from 'firebase/app'
 import 'firebase/auth'
 import 'firebase/database'
-import { config } from './config'
+import  config  from './config'
+
 
 /**
  * @class Firebase
