@@ -31,5 +31,10 @@ const App = () => (
   </Router>
 )
 
-export default withAuthentication(App)
-//test
+const Navigation = () => (
+  <AuthUserContext.Consumer>
+    {authUser =>
+      authUser ? <NavigationAuth authUser={authUser} /> : <NavigationNonAuth />
+    }
+  </AuthUserContext.Consumer>
+);
