@@ -2,6 +2,10 @@ import React from 'react'
 
 import AuthUserContext from './context'
 import { withFirebase } from '../Firebase'
+import axios from 'axios';
+
+const URL = "http://chore-monkey.herokuapp.com"
+// const URL = "http://localhost:9000"
 
 const withAuthentication = Component => {
   class WithAuthentication extends React.Component {
@@ -18,6 +22,20 @@ const withAuthentication = Component => {
         authUser => {
           localStorage.setItem('authUser', JSON.stringify(authUser))
           console.log(authUser)
+          const herokuDbUser = {
+            name:   authUser.user,
+            email:  authUser.email,
+            uid:    authUser.uid
+          }
+          console.log(herokuDbUser);
+          axios.post(`${URL}/api/users/`, herokuDbUser)
+          .then(response => {
+            console.log(`User ${herokuDbUser.name} succesfully added to Heroku Database with uid ${herokuDbUser.uid}`);
+            console.log("Server:", response.data.message);
+          })
+          .catch(error => {
+            console.log(error)
+          })
           this.setState({ authUser })
         },
         () => {
@@ -44,3 +62,4 @@ const withAuthentication = Component => {
 }
 
 export default withAuthentication
+
