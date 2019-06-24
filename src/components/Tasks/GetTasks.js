@@ -1,28 +1,45 @@
-import React, { useContext, useState, useEffect, Fragment } from 'react'
+import React, { useState, useEffect, Fragment } from 'react'
 import uuidv4 from 'uuid'
-import FirebaseContext from '../../firebase/context'
+// import FirebaseContext from '../../firebase/context'
 import TaskCard from './TaskCard'
+import axios from 'axios';
 
-const GetTasks = ({ groupId }) => {
-  const { firebase } = useContext(FirebaseContext)
+const urlTask = "http://localhost:9000/api/tasks/";
+// const GetTasks = ({ groupId }) => {
+//   const { firebase } = useContext(FirebaseContext)
+//   const [tasks, setTasks] = useState([])
+//   const uid = JSON.parse(localStorage.getItem('user')).uid
+//   useEffect(() => {
+//     const unsubscribe = firebase.firestore
+//       .collection(`users/${uid}/groups/${groupId}/tasks`)
+//       .onSnapshot(snapshot =>
+//         setTasks(
+//           snapshot.docs.map(doc => {
+//             return { id: doc.id, ...doc.data() }
+//           })
+//         )
+//       )
+//     return () => {
+//       unsubscribe()
+//     }
+//   }, [firebase.firestore, uid, groupId])
+
+const GetTasks = ({groupId}) => {
   const [tasks, setTasks] = useState([])
   const uid = JSON.parse(localStorage.getItem('user')).uid
-  useEffect(() => {
-    const unsubscribe = firebase.firestore
-      .collection(`users/${uid}/groups/${groupId}/tasks`)
-      .onSnapshot(snapshot =>
-        setTasks(
-          snapshot.docs.map(doc => {
-            return { id: doc.id, ...doc.data() }
-          })
-        )
-      )
-    return () => {
-      unsubscribe()
-    }
-  }, [firebase.firestore, uid, groupId])
+  useEffect(() =>{
+    axios
+    .get(urlTask)
+    .then(response => {
+      setTasks(response.data)
+    })
+    .catch(error => {
+      console.log(error)
+    })
+  }, [uid])
+// }
+console.log(tasks.data)
 
-    console.log(tasks)
   return (
     <div className="groupTableList">
       <table className="highlight">
@@ -35,22 +52,23 @@ const GetTasks = ({ groupId }) => {
             <th className="boldTable">Actions</th>
           </tr>
 
-          {tasks.map(task => (
-            <Fragment key={uuidv4()}>
-              <TaskCard
-                taskId={task.id}
-                chore={task.chore}
-                date={task.date}
-                isDone={task.isDone}
-                assigned={task.assigned}
-                groupId={groupId}
+            {tasks.length && tasks.map(task => (
+             <Fragment key={uuidv4()}>
+               <TaskCard
+                  taskId={task.id}
+                  chore={task.chore}
+                  date={task.date}
+                  isDone={task.isDone}
+                  assigned={task.assigned}
+                  groupId={groupId}
               />
-            </Fragment>
-          ))}
+             </Fragment>
+           ))} 
         </thead>
       </table>
     </div>
   )
+
 }
 
 /*This is Ryans Work */

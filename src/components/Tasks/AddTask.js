@@ -6,9 +6,6 @@ import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ProfilePhotoTask from './TaskAvatar'
-// import Modal from '@material-ui/core/Modal';
-// import Menu from '@material-ui/core/Menu';
-// import MenuItem from '@material-ui/core/MenuItem';
 
 const initialState = {
   chore: '',
@@ -27,22 +24,12 @@ function validateTask(values) {
 }
 
 export default function AddTask({ history, match }) {
-  // const [open, setOpen] = React.useState(false);
   const { firebase, user } = useContext(FirebaseContext)
   const { handleSubmit, handleChange, errors, values } = useFormValidation(
     initialState,
     validateTask,
     submitTask
   )
-    // const [anchorEl, setAnchorEl] = React.useState(null);
-  
-    // function handleClick(event) {
-    //   setAnchorEl(event.currentTarget);
-    // }
-  
-    // function handleClose() {
-    //   setAnchorEl(null);
-    // }
 
 
   async function submitTask() {
@@ -141,6 +128,8 @@ export default function AddTask({ history, match }) {
   </div>
   )
 }
+
+
   // const handleOpen = () => {
   //   setOpen(true);
   // };
