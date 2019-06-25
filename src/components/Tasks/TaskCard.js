@@ -1,21 +1,35 @@
-import React, { useContext, useState } from 'react'
-import FirebaseContext from '../../firebase/context'
+import React, { useContext, useState, useEffect } from 'react'
+// import FirebaseContext from '../../firebase/context'
 import Tooltip from "@material-ui/core/Tooltip"
 import TaskModal from './TaskModal'
+import axios from 'axios'
+// import { id } from 'postcss-selector-parser';
 // import GetTasks from './GetTasks';
 
 
+// const TaskCard = ({ taskId, chore, assigned, date, isDone, groupId }) => {
+//   const { firebase, user } = useContext(FirebaseContext)
 
-const TaskCard = ({ taskId, chore, assigned, date, isDone, groupId }) => {
-  const { firebase, user } = useContext(FirebaseContext)
+//   async function deleteTask() {
+//     await firebase.firestore
+//       .collection(`users/${user.uid}/groups/${groupId}/tasks`)
+//       .doc(taskId)
+//       .delete()
+//   }
 
-  async function deleteTask() {
-    await firebase.firestore
-      .collection(`users/${user.uid}/groups/${groupId}/tasks`)
-      .doc(taskId)
-      .delete()
+const TaskCard = ({taskId, chore, assigned, date, isDone, groupId}) => {
+  
+  const deleteTask = () => {
+      axios
+      .delete(`http://localhost:9000/api/tasks/${taskId}`)
+      .then(response => {
+        console.log(response.data)
+      })
+      .catch(error => {
+        console.log(error)
+      })
   }
-
+  
 
   return  (
         <tr>
@@ -57,7 +71,7 @@ const TaskCard = ({ taskId, chore, assigned, date, isDone, groupId }) => {
             </Tooltip> 
           </th>
         </tr>
-  ) 
-}
+    ) 
+  }
 
 export default TaskCard
