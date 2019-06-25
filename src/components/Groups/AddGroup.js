@@ -1,6 +1,7 @@
 import React, { useContext, useEffect } from 'react'
 import useFormValidation from '../Auth/useFormValidation'
 import FirebaseContext from '../../firebase/context'
+import axios from 'axios'
 import '../../styles/addgroups.css'
 
 const initialState = {
@@ -45,6 +46,8 @@ export default function AddGroup({ history }) {
       history.push('/dashboard')
     }
   }
+
+
   return (
     <div className="groupBackGround">
 <div className="addGroupDiv">
