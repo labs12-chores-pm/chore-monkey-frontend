@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import requiresAuth from '../../components/Auth/requiresAuth'
 
 const Sidebar = () => {
   return (
@@ -11,4 +12,4 @@ const Sidebar = () => {
   );
 };
 
-export default Sidebar;
+export default requiresAuth(Sidebar);

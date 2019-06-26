@@ -12,6 +12,7 @@ import IMAGE4 from '../assets/group-page/png/IMAGE-3.png'
 // import Date from '../components/Tasks/Date'
 import Modal from 'react-modal'
 import axios from 'axios'
+import requiresAuth from '../components/Auth/useAuth'
 
 const usersUrl = "http://localhost:9000/api/users/"
 const groupMembersUrl = "http://localhost:9000/api/groupmembers/"

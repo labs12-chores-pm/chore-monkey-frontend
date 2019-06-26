@@ -9,6 +9,8 @@ import { ReactComponent as ListIcon } from '../../assets/dashboard/icons/list.sv
 import { ReactComponent as CalendarIcon } from '../../assets/dashboard/icons/calendar.svg';
 import { ReactComponent as SettingsIcon } from '../../assets/dashboard/icons/settings.svg';
 import axios from 'axios';
+import requiresAuth from '../../components/Auth/requiresAuth';
+
 
 const groupUrl = 'http://localhost:9000/api/group/';
 const groupMembersUrl = 'http://localhost:9000/api/groupmembers/';
@@ -192,4 +194,4 @@ class Dashboard extends Component {
   }
 }
 
-export default Dashboard;
+export default requiresAuth(Dashboard);
