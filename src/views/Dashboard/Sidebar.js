@@ -12,4 +12,4 @@ const Sidebar = () => {
   );
 };
 
-export default requiresAuth(Sidebar);
+export default Sidebar;

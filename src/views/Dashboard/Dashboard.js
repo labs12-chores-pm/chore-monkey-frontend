@@ -194,4 +194,4 @@ class Dashboard extends Component {
   }
 }
 
-export default requiresAuth(Dashboard);
+export default Dashboard;

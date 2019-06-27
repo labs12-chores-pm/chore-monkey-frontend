@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import {BrowserRouter as Router} from 'react-router-dom'
 
 axios.interceptors.request.use(
   function(options) {
@@ -11,11 +12,17 @@ axios.interceptors.request.use(
   }
 );
 
+
+
+
 export default function(Component) {
   return class Authenticated extends React.Component {
     render() {
       const token = localStorage.getItem('user');
-      const notLoggedIn = <div>Please login to see the dashboard</div>;
+      const notLoggedIn = <div>
+        <h1>Please login first</h1>
+        <button >Take me to the login!</button>
+        </div>;
       return <> {token ? <Component {...this.props} /> : notLoggedIn} </>;
     }
   };

@@ -6,6 +6,7 @@ import Dashboard from '../views/Dashboard/Dashboard'
 import BillingPage from '../components/Billing/BillingPage'
 import firebase, { FirebaseContext } from '../firebase'
 import useAuth from '../components/Auth/useAuth'
+import requiresAuth from '../components/Auth/requiresAuth'
 import AddGroup from '../components/Groups/AddGroup'
 import InProgress from '../views/InProgress'
 
@@ -38,19 +39,19 @@ const App = () => {
                     <Route exact path="/" component={LandingPage} />
                     <Route path="/login" component={Login} />
                     <Route path="/forgot" component={ForgotPassword} />
-                    <Route path="/dashboard" component={Dashboard} />
-                    <Route path="/add-group" component={AddGroup} />
-                    <Route path="/billing" component={BillingPage} />
+                    <Route path="/dashboard" component={requiresAuth(Dashboard)} />
+                    <Route path="/add-group" component={requiresAuth(AddGroup)} />
+                    <Route path="/billing" component={requiresAuth(BillingPage)} />
                     <Route path="/404" component={InProgress} />
-                    <Route exact path="/groups/:groupId" component={Group} />
-                    <Route path="/profile" component={Profile} />
-                    <Route path="/settings" component={Settings} />
+                    <Route exact path="/groups/:groupId" component={requiresAuth(Group)} />
+                    <Route path="/profile" component={requiresAuth(Profile)} />
+                    <Route path="/settings" component={requiresAuth(Settings)} />
                     <Route
                       exact
                       path="/groups/:groupId/add-task"
-                      component={AddTask}
+                      component={requiresAuth(AddTask)}
                     />
-                    <Route path="/mytasks/:userId" component={MyTasks} />
+                    <Route path="/mytasks/:userId" component={requiresAuth(MyTasks)} />
                   </Switch>
                 </RouteContainer>
               </PoseGroup>
