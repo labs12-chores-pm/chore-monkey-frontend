@@ -160,7 +160,7 @@ class Group extends Component  {
             </button>
           </Link>
         <div className="imageButtons">
-          <Link to={`/groups/${4}/add-task`}>
+          <Link to={`/groups/${group.id}/add-task`}>
             <button className="threeButtonsOne waves-effect waves-light btn-large pink accent-3 hvr-shutter-out-vertical">
               <span className="material-icons iconLinks iconOne">
                 access_time
@@ -184,7 +184,7 @@ class Group extends Component  {
 
     <div className="bottomTableAndUsers">
       <div className="bottomLeftView">
-        <GetTasks groupId={4} groupName={group.name} />
+        <GetTasks groupId={group.id} groupName={group.name} />
       </div>
       <div className="rightBottomView">
 

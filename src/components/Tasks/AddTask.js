@@ -145,11 +145,14 @@ class AddTask extends Component {
       assigned: '',
       date: '',
       isDone: false,
+      groupId: this.props.match.params.groupId,
     }
   }
   
     handleSubmit = () => {
       console.log('this is submitting')
+      // const {history} = this.props
+      console.log(this.props)
       axios
         .post(
           'http://localhost:9000/api/tasks/',
@@ -157,18 +160,22 @@ class AddTask extends Component {
             title: this.state.chore,
             assignedTo: this.state.assigned,
             dueDate: this.state.date,
-            groupId:1,
+            groupId: this.props.match.params.groupId,
             listId:1
           })
         .then(response => {
           this.setState(
-            console.log('hello tasks is working', response.data)
+            // console.log('hello tasks is working', response.data)
+            console.log(response.data)
           )
         .catch(err => {
           console.log('task error', err)
         })
+        .finally(this.props.history.push(`/groups/${this.state.groupId}`))
+        // console.log(history,'this is the history from finally')
       })
     }
+    
     handleChange(event){
       this.setState({
         [event.target.name] : event.target.value
@@ -176,6 +183,8 @@ class AddTask extends Component {
     }
 
     render() {
+      // console.log(this.handleSubmit, this.props, 'this is the history')
+      console.log(this.props.match.params.groupId)
       return(
         <div className="taskBackGround">
         <div className="addTaskDiv">
