@@ -4,6 +4,7 @@ import firebase from 'firebase';
 import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
 import { uiConfig } from '../../firebase/uiconfig';
 import sendToDB from './sendToDB';
+import axios from 'axios';
 
 class SocialLogins extends Component {
   constructor(props) {
@@ -13,7 +14,25 @@ class SocialLogins extends Component {
     };
   }
 
-  componentDidMount() {
+  async componentDidMount() {
+    if (firebase.auth().isSignInWithEmailLink(window.location.href)) {
+      let email = localStorage.getItem('emailForSignIn');
+
+      if (!email) {
+        email = window.prompt('Please provide your email for confirmation.');
+      }
+      try {
+        const result = await firebase
+          .auth()
+          .signInWithEmailLink(email, window.location.href);
+        axios.post('https://chore-monkey.herokuapp.com/api/groupmembers', {
+          userId: result.user.uid,
+          groupId: parseInt(window.location.search.split('?')[0].split('=')[1])
+        });
+      } catch (err) {
+        console.error(err.message);
+      }
+    }
     this.unregisterAuthObserver = firebase.auth().onAuthStateChanged(user => {
       this.setState({ isSignedIn: !!user });
     });

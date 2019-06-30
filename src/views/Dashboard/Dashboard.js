@@ -9,6 +9,7 @@ import { ReactComponent as ListIcon } from '../../assets/dashboard/icons/list.sv
 import { ReactComponent as CalendarIcon } from '../../assets/dashboard/icons/calendar.svg';
 import { ReactComponent as SettingsIcon } from '../../assets/dashboard/icons/settings.svg';
 import axios from 'axios';
+import InviteUser from '../../components/Invites/InviteUser';
 
 const uid = JSON.parse(localStorage.getItem('uid'));
 const user = JSON.parse(localStorage.getItem('user'));
@@ -102,6 +103,7 @@ class Dashboard extends Component {
             <button className="btn hvr-glow" onClick={this.openModal}>
               New Group
             </button>
+            <InviteUser />
           </div>
           <div className="cards">
             <GroupList groups={this.state.groups} className="cards" />

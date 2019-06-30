@@ -19,7 +19,7 @@ function DashPhoto() {
   return (
     <Avatar
       alt="photo of user"
-      src={JSON.parse(localStorage.getItem('user')).photoUrl}
+      src={JSON.parse(localStorage.getItem('user')).photoURL}
       className={classes.bigAvatar}
     />
   );
