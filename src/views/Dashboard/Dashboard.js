@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React, { Component } from 'react';
 import Modal from 'react-responsive-modal';
 import GroupList from './GroupList';
@@ -10,25 +11,38 @@ import { ReactComponent as CalendarIcon } from '../../assets/dashboard/icons/cal
 import { ReactComponent as SettingsIcon } from '../../assets/dashboard/icons/settings.svg';
 import axios from 'axios';
 import InviteUser from '../../components/Invites/InviteUser';
+=======
+import React, { Component } from "react";
+import Modal from "react-responsive-modal";
+import GroupList from "./GroupList";
+import { DashPhoto } from "../../components/Common";
+import { ReactComponent as ContactsIcon } from "../../assets/dashboard/icons/contacts-icon.svg";
+import { ReactComponent as ProfileIcon } from "../../assets/dashboard/icons/profile.svg";
+import { ReactComponent as HomeIcon } from "../../assets/dashboard/icons/home.svg";
+import { ReactComponent as ListIcon } from "../../assets/dashboard/icons/list.svg";
+import { ReactComponent as CalendarIcon } from "../../assets/dashboard/icons/calendar.svg";
+import { ReactComponent as SettingsIcon } from "../../assets/dashboard/icons/settings.svg";
+import axios from "axios";
+>>>>>>> master
 
-const uid = JSON.parse(localStorage.getItem('uid'));
-const user = JSON.parse(localStorage.getItem('user'));
-const url = 'https://chore-monkey.herokuapp.com/api';
+const uid = JSON.parse(localStorage.getItem("uid"));
+const user = JSON.parse(localStorage.getItem("user"));
+const url = "https://chore-monkey.herokuapp.com/api";
 console.log(uid);
 class Dashboard extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      name: '',
+      name: "",
       groups: [],
       uid: uid,
       open: false,
-      groupName: ''
+      groupName: ""
     };
   }
 
   componentDidMount() {
-    console.log('mounting');
+    console.log("mounting");
     this.fetch();
     console.log(this.state);
   }
@@ -42,8 +56,9 @@ class Dashboard extends Component {
         this.setState({
           name: res.data.name,
           groups: res.data.groups,
-          groupName: '',
-          open: false
+          groupName: "",
+          open: false,
+          error: false
         });
       })
       .catch(err => {
@@ -61,6 +76,12 @@ class Dashboard extends Component {
   };
   //add group functions
   addGroup = () => {
+    if (this.state.groupName === "") {
+      this.setState({
+        error: true
+      });
+      return;
+    }
     const group = {
       creatorId: this.state.uid,
       name: this.state.groupName
@@ -76,12 +97,12 @@ class Dashboard extends Component {
 
   //Opens delete modal
   openModal = () => {
-    this.setState({ open: true });
+    this.setState({ open: true, error: false });
   };
 
   //Closes delete modal
   closeModal = () => {
-    this.setState({ open: false });
+    this.setState({ open: false, error: false });
   };
 
   render() {
@@ -94,7 +115,7 @@ class Dashboard extends Component {
           <DashPhoto />
           <h1>
             Welcome Back,
-            {' ' + user.displayName}
+            {" " + user.displayName}
           </h1>
         </div>
 
@@ -115,13 +136,13 @@ class Dashboard extends Component {
             <ContactsIcon
               className="di  hvr-push"
               onClick={() => {
-                history.push('/404');
+                history.push("/404");
               }}
             />
             <p
               className="  hvr-push"
               onClick={() => {
-                history.push('/404');
+                history.push("/404");
               }}
             >
               CONTACTS
@@ -132,13 +153,13 @@ class Dashboard extends Component {
             <ProfileIcon
               className="di hvr-push  "
               onClick={() => {
-                history.push('/profile');
+                history.push("/profile");
               }}
             />
             <p
               className=" hvr-push  "
               onClick={() => {
-                history.push('/404');
+                history.push("/404");
               }}
             >
               PROFILE
@@ -149,13 +170,13 @@ class Dashboard extends Component {
             <HomeIcon
               className="di hvr-push  "
               onClick={() => {
-                history.push('/');
+                history.push("/");
               }}
             />
             <p
               className=" hvr-push  "
               onClick={() => {
-                history.push('/');
+                history.push("/");
               }}
             >
               HOME
@@ -183,13 +204,13 @@ class Dashboard extends Component {
             <CalendarIcon
               className="di hvr-push  "
               onClick={() => {
-                history.push('/404');
+                history.push("/404");
               }}
             />
             <p
               className=" hvr-push  "
               onClick={() => {
-                history.push('/404');
+                history.push("/404");
               }}
             >
               CALENDAR
@@ -200,13 +221,13 @@ class Dashboard extends Component {
             <SettingsIcon
               className="di hvr-push  "
               onClick={() => {
-                history.push('/settings');
+                history.push("/settings");
               }}
             />
             <p
               className=" hvr-push  "
               onClick={() => {
-                history.push('/settings');
+                history.push("/settings");
               }}
             >
               SETTINGS
@@ -234,6 +255,9 @@ class Dashboard extends Component {
               >
                 Submit
               </button>
+              {this.state.error && (
+                <p className="form-error">Name cannot be empty!</p>
+              )}
             </form>
           </div>
         </Modal>
