@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import TinyPic from "../../components/TinyPic";
-import EditableLabel from "react-inline-editing";
+import TextField from "@material-ui/core/TextField";
+import MenuItem from '@material-ui/core/MenuItem';
+
 class TaskTable extends Component {
   constructor(props) {
     super(props);
@@ -8,7 +10,9 @@ class TaskTable extends Component {
       title: "",
       editing: false,
       editTaskId: "",
-      assignedTo: ""
+      assignedTo: "",
+      editingAssignedUser: false,
+      editingAssignedUserTaskID: "",
     };
   }
 
@@ -26,8 +30,6 @@ class TaskTable extends Component {
   }
 
   editTask = (task) => {
-    console.log("Edit Task")
-    console.log(task)
     if (!this.state.editTaskId) {
       return this.setState({ editing: !this.state.editing, editTaskId: task.taskId, assignedTo: task.assignedTo });
     } else {
@@ -47,7 +49,31 @@ class TaskTable extends Component {
     return this.setState({ editing: !this.state.editing, editTaskId: "", title: "" });
   };
 
+  openAssignedUserEdit(task) {
+    if (!this.state.editingAssignedUser && !this.state.editingAssignedUserTaskID) {
+      this.setState({
+        editingAssignedUser: !this.state.editingAssignedUser,
+        editingAssignedUserTaskID: task.taskId
+      })
+    }
+  }
+
+  submitAssignedUserEdit(task) {
+    this.props.edit({
+      assignedTo: this.state.assignedTo,
+    }, this.state.editingAssignedUserTaskID)
+
+    this.setState({
+      editingAssignedUser: !this.state.editingAssignedUser,
+      editingAssignedUserTaskID: "",
+      assignedTo: ""
+    })
+  }
+
+
   render() {
+    console.log(this.state)
+    console.log(this.props.members)
     return (
       <div>
         <table className="pink striped highlight responsive-table">
@@ -67,8 +93,37 @@ class TaskTable extends Component {
               return (
                 <tr>
                   <td>{t.title}</td>
-                  <td>
-                    <TinyPic photo={photo} />
+                  <td onClick={() => this.openAssignedUserEdit(t)}>
+                    { this.state.editingAssignedUserTaskID == t.taskId 
+                      ?
+                      // "8====D~~~"
+                      <form>
+                      <TextField
+                      id="dropdown"
+                      select
+                      // className={classes.textField}
+                      value={this.state.assignedTo}
+                      name="assignedTo"
+                      onChange={this.handleChange}
+                      onSubmit={() => console.log("submitting")}
+                      // SelectProps={{
+                      //   MenuProps: {
+                      //     className: classes.menu
+                      //   }
+                      // }}
+                      margin="normal"
+                    >
+                      {this.props.members.map(m => (
+                        <MenuItem key={m.userId} value={m.uid}>
+                          {m.name}
+                        </MenuItem>
+                      ))}
+                    </TextField>
+                      <button onClick={(e) =>{ e.preventDefault(); this.submitAssignedUserEdit(t) }}> :O </button>
+                    </form>
+                      // </form>
+                    :
+                      <TinyPic photo={photo} /> }
                   </td>
                   <td>{date}</td>
                   <td>
