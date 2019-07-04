@@ -13,7 +13,7 @@ class SearchBar extends Component {
       <div className="content">
         <div className="container">
           <section className="section">
-            <List items={this.state.user} delete={this.removeItem} />
+            <List items={this.state.user} />
           </section>
           <hr />
         </div>
