@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
+// import SearchBar from "../components/SearchBar";
+// import SearchBar from '../components/SearchBar';
 
 class TroopMates extends Component {
   constructor(props) {
@@ -10,7 +12,8 @@ class TroopMates extends Component {
       email: "",
       name: "",
       results: [],
-      term: ""
+      term: "",
+      filtered:[],
     };
   }
 
@@ -31,26 +34,50 @@ class TroopMates extends Component {
       });
   };
 
-  search = term => {
-    let arr = this.state.users.filter(u => u.name.includes(term));
-    console.log(arr);
-    if (arr) {
-      this.setState({
-        results: arr
-      });
-    } else {
-      return "no members by that name";
-    }
-  };
+  // search = term => {
+  //   let arr = this.state.users.filter(u => u.name.includes(term));
+  //   console.log(arr);
+  //   if (arr) {
+  //     this.setState({
+  //       results: arr
+  //     });
+  //   } else {
+  //     return "no members by that name";
+  //   }
+  // };
+
+  handleChangeSearch(e, m) {
+  let users = m;
+  if (e.target.value !== "") {
+    // users = this.state.users;
+    users = users.filter(user => {
+      console.log(user)
+      const lc = user.name.toLowerCase();
+      const filter = e.target.value.toLowerCase();
+      return lc.includes(filter);
+    });
+  } else {
+    users = this.state.users;
+  }
+  this.setState({
+    filtered: users
+  });
+}
+
 
   render() {
     const { name, users, results, email, term } = this.state;
 
     return (
       <div className="search">
+          <input
+          type="text"
+          onChange={(e) => this.handleChangeSearch (e,this.state.users)}
+          placeholder="Search Your Friends"
+          /> 
         <form> </form>
         <div className="search-cards">
-          {users.map(m => {
+          {this.state.filtered.map(m => {
             return (
               <Link
                 to={{
@@ -86,3 +113,28 @@ class TroopMates extends Component {
 }
 
 export default TroopMates;
+
+// Let items = {this.state.users}
+
+// handleChangeSearch(e) {
+//   let users = [];
+//   if (e.target.value !== "") {
+//     users = this.props.items;
+//     users = users.filter(item => {
+//       const lc = item.toLowerCase();
+//       const filter = e.target.value.toLowerCase();
+//       return lc.includes(filter);
+//     });
+//   } else {
+//     users = this.props.items;
+//   }
+//   this.setState({
+//     filtered: users
+//   });
+// }
+
+//  <input
+// type="text"
+// onChange={this.handleChangeSearch}
+// placeholder="Search Your Friends"
+// /> 

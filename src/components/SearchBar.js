@@ -1,10 +1,10 @@
-import React from "react";
+import React, {Component} from "react";
 
 class SearchBar extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      user: ["Michael", "Luisan", "Sabrina", "Phil", "Ryan"]
+      user: []
     };
   }
 
@@ -22,7 +22,7 @@ class SearchBar extends Component {
   }
 }
 
-class List extends React.Component {
+class List extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -85,10 +85,6 @@ class List extends React.Component {
           {this.state.filtered.map(item => (
             <li key={item}>
               {item} &nbsp;
-              <span
-                className="delete"
-                onClick={() => this.props.delete(item)}
-              />
             </li>
           ))}
         </ul>
