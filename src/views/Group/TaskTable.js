@@ -25,6 +25,8 @@ import FilterListIcon from "@material-ui/icons/FilterList";
 import TextField from "@material-ui/core/TextField";
 import MenuItem from '@material-ui/core/MenuItem';
 
+const url = "https://chore-monkey.herokuapp.com/api/tasks"
+
 class TaskTable extends Component {
   constructor(props) {
     super(props);
@@ -48,7 +50,6 @@ class TaskTable extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    // Typical usage (don't forget to compare props):
     if (this.props.tasks !== prevProps.tasks || !this.state.setRows) {
       this.setState({ rows: this.props.tasks, setRows:true });
     }
@@ -64,7 +65,7 @@ class TaskTable extends Component {
   delete = () => {
     this.state.selected.forEach(e => {
       axios
-        .delete(`https://chore-monkey.herokuapp.com/api/tasks/${e}`)
+        .delete(`${url}/${e}`)
         .then(res => {
           this.props.fg();
         })
@@ -79,7 +80,7 @@ class TaskTable extends Component {
   complete = () => {
     this.state.selected.forEach(e => {
       axios
-        .update(`https://chore-monkey.herokuapp.com/api/tasks/${e}`)
+        .update(`${url}/${e}`)
         .then(res => {
           this.props.fg();
         })
@@ -106,7 +107,7 @@ class TaskTable extends Component {
     });
     const u = { isComplete: this.state.rows[i].isComplete };
     axios
-      .put(`https://chore-monkey.herokuapp.com/api/tasks/${task.taskId}`, u)
+      .put(`${url}/${task.taskId}`, u)
       .then(res => {
         console.log(res);
       })
@@ -165,9 +166,7 @@ class TaskTable extends Component {
   };
 
   handleSelectAllClick = event => {
-    console.log("event");
     if (event.target.checked) {
-      console.log("checkfired");
       const newSelecteds = this.state.rows.map(m => m.id);
       console.log(newSelecteds);
       this.setState({
@@ -304,17 +303,11 @@ class TaskTable extends Component {
     }
   }
 
-  submitAssignedUserEdit(task) {
-    console.log("Submiting Assigned User Edit")
-    console.log(task)
-    console.log("Assigned To")
-    console.log(this.state.assignedTo)
-    if (task != this.state.assignedTo ) {
+  submitAssignedUserEdit(newAssignedUser) {
+    if (newAssignedUser != this.state.assignedTo ) {
       this.props.edit({
-        assignedTo: task,
+        assignedTo: newAssignedUser,
       }, this.state.editingAssignedUserTaskID)
-
-      console.log("runs")
     }
       this.setState({
         editingAssignedUser: !this.state.editingAssignedUser,
@@ -401,9 +394,6 @@ class TaskTable extends Component {
       { id: "actions", numeric: false, disablePadding: false, label: "Actions" }
     ];
 
-    console.log(this.state)
-    console.log(this.props.tasks)
-    this.props.tasks.forEach(task => console.log(task.title))
 
     return (
       <div className="mytable">
@@ -515,32 +505,26 @@ class TaskTable extends Component {
                     { this.state.editingAssignedUserTaskID == row.taskId 
                       ?
                       <form>
-                      <TextField
-                      id="dropdown"
-                      select
-                      // className={classes.textField}
-                      value={this.state.assignedTo}
-                      name="assignedTo"
-                      onChange={this.handleChange}
-                      onSubmit={() => console.log("submitting")}
-                      // SelectProps={{
-                      //   MenuProps: {
-                      //     className: classes.menu
-                      //   }
-                      // }}
-                      margin="normal"
-                    >
+                        <TextField
+                          id="dropdown"
+                          select
+                          value={this.state.assignedTo}
+                          name="assignedTo"
+                          onChange={this.handleChange}
+                          margin="normal"
+                        >
                       {this.props.members.map(m => (
                         <div>
-                        <MenuItem onClick={(e) =>{ e.preventDefault(); console.log("sexxyy"); this.submitAssignedUserEdit(m.userId) }} key={m.userId} value={m.uid}>
-                          {m.name}
-                        </MenuItem>
+                          <MenuItem 
+                            onClick={(e) =>{ e.preventDefault();  this.submitAssignedUserEdit(m.userId) }} 
+                            key={m.userId} 
+                            value={m.uid}>
+                              {m.name}
+                          </MenuItem>
                         </div>
                       ))}
                     </TextField>
-                      {/* <button onClick={(e) =>{ e.preventDefault(); this.submitAssignedUserEdit(row) }}> ¯\_(ツ)_/¯ </button> */}
                     </form>
-                      // </form>
                     :
                       <TinyPic photo={photo} /> }
                       </div>
