@@ -72,6 +72,11 @@ class MyTasks extends Component {
         });
     };
 
+    resetAfterDelete = () => {
+        this.setState({ tasks: [] })
+        this.fetchTasks()
+    }
+
 
   render() {
     if (this.state.fetchedGroups && !this.state.fetchedTasks) { this.fetchTasks() }
@@ -94,11 +99,13 @@ class MyTasks extends Component {
                                            taskObject.groupId == group.groupId
                                             ?
                                             <TaskTable
+                                                key={taskObject.groupId}
                                                 members={this.state.member}
                                                 tasks={taskObject.tasks}
                                                 groupId={group.groupId}
                                                 edit={"this.editTask"}
                                                 titleSubmit={"this.editTask"}
+                                                fg={this.resetAfterDelete}
                                             />
                                             :
                                             ""
