@@ -63,12 +63,10 @@ class Group extends Component {
     this.setState({ [e.target.name]: e.target.value });
   };
   addTask = task => {
-    console.log(task)
     axios
       .post("https://chore-monkey.herokuapp.com/api/tasks", task)
       .then(res => {
         this.setState({ showModal: false });
-        console.log(res)
         this.fetchGroup();
       })
       .catch(er => console.log(er.message));
