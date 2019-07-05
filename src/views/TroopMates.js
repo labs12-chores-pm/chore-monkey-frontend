@@ -10,7 +10,8 @@ class TroopMates extends Component {
       email: "",
       name: "",
       results: [],
-      term: ""
+      term: "",
+      filtered:[],
     };
   }
 
@@ -31,17 +32,40 @@ class TroopMates extends Component {
       });
   };
 
+  handleChangeSearch(e, m) {
+  let users = m;
+  if (e.target.value !== "") {
+    // users = this.state.users;
+    users = users.filter(user => {
+      console.log(user)
+      const lc = user.name.toLowerCase();
+      const filter = e.target.value.toLowerCase();
+      return lc.includes(filter);
+    });
+  } else {
+    users = this.state.users;
+  }
+  this.setState({
+    filtered: users
+  });
+}
+
+
   render() {
     const { name, users, results, email, term } = this.state;
 
     return (
-      <div>
+      <div className="search">
+          <input
+          type="text"
+          onChange={(e) => this.handleChangeSearch (e,this.state.users)}
+          placeholder="Search Your Friends"
+          /> 
+        <form> </form>
         <div className="search-cards">
-          {users.map(m => {
+          {this.state.filtered.map(m => {
             return (
               <Link
-                id={m.uid}
-                key={m.uid}
                 to={{
                   pathname: `/user/${m.uid}`,
                   state: {
@@ -49,11 +73,18 @@ class TroopMates extends Component {
                   }
                 }}
               >
-                <div className="card ">
+                <div className="card hoverable">
                   <div className="card-image center-align">
                     <img src={m.profilePicture} alt="profile of user" />
+
+                    <a
+                      className="btn-floating halfway-fab waves-effect waves-light red"
+                      href="www.google.com"
+                    >
+                      <i className="material-icons">add</i>
+                    </a>
                   </div>
-                  <div className="card-content">
+                  <div class="card-content">
                     <h3 className="card-title">{m.name}</h3>
                     <p>{m.location}</p>
                   </div>
