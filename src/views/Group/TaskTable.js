@@ -305,10 +305,16 @@ class TaskTable extends Component {
   }
 
   submitAssignedUserEdit(task) {
-    if (task.assignedTo != this.state.assignedTo && this.state.assignedTo) {
+    console.log("Submiting Assigned User Edit")
+    console.log(task)
+    console.log("Assigned To")
+    console.log(this.state.assignedTo)
+    if (task != this.state.assignedTo ) {
       this.props.edit({
-        assignedTo: this.state.assignedTo,
+        assignedTo: task,
       }, this.state.editingAssignedUserTaskID)
+
+      console.log("runs")
     }
       this.setState({
         editingAssignedUser: !this.state.editingAssignedUser,
@@ -367,6 +373,10 @@ class TaskTable extends Component {
     const createSortHandler = property => event => {
       this.handleRequestSort(event, property);
     };
+
+    if (!this.state.setRows) {
+      this.setState({ rows: this.props.tasks, setRows:true });
+    }
 
     const headRows = [
       { id: "title", numeric: false, disablePadding: true, label: "Task" },
@@ -521,12 +531,14 @@ class TaskTable extends Component {
                       margin="normal"
                     >
                       {this.props.members.map(m => (
-                        <MenuItem key={m.userId} value={m.uid}>
+                        <div>
+                        <MenuItem onClick={(e) =>{ e.preventDefault(); console.log("sexxyy"); this.submitAssignedUserEdit(m.userId) }} key={m.userId} value={m.uid}>
                           {m.name}
                         </MenuItem>
+                        </div>
                       ))}
                     </TextField>
-                      <button onClick={(e) =>{ e.preventDefault(); this.submitAssignedUserEdit(row) }}> ¯\_(ツ)_/¯ </button>
+                      {/* <button onClick={(e) =>{ e.preventDefault(); this.submitAssignedUserEdit(row) }}> ¯\_(ツ)_/¯ </button> */}
                     </form>
                       // </form>
                     :
